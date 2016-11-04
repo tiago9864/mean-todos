@@ -6,6 +6,8 @@
   TodoService.$inject = [];
 
   function TodoService(){
+    return {
 
+    };
   }
 }());
