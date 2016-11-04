@@ -1,5 +1,5 @@
 (function() {
 
-  angular.module('intro', []); //setter syntax -> starts the application
+  angular.module('mean-todos', []); //setter syntax -> starts the application
 
 }());
