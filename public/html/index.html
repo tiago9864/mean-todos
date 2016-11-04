@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="mean-todos">
+  <head>
+    <title>Introduction to AngularJS</title>
+  </head>
+  <body>
+    <div ng-controller="MainController">
+      <input type="text" ng-model='newTodo'>
+      <button ng-click='createTodo(newTodo)'>Add New Todo</button>
+      <ul>
+        <li ng-repeat='todo in todos track by $index'>
+          <input type="text" ng-show='todo.isBeingEdited' ng-model='todo.desc'>
+          <span ng-hide='todo.isBeingEdited'>{{ todo.desc }}</span>
+          <button ng-click='deleteTodo($index)'>&times;</button>
+          <button ng-click='editTodo(todo)' ng-hide='todo.isBeingEdited'>Edit</button>
+          <button ng-click='saveTodo($index, todo)' ng-show='todo.isBeingEdited'>Save</button>
+        </li>
+      </ul>
+    </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers/main.controller.js"></script>
+  <script src="js/services/todo.service.js"></script>
+  </body>
+</html>
