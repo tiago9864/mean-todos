@@ -21,7 +21,21 @@ router.get('/todos', function(req, res){
    });
 
 });
-router.get('/todos/id:', function(req, res){});
+router.get('/todos/:id', function(req, res){
+Todo.find({_id: req.params.id}, function(err, foundTodo){
+  if (err){
+    res.status(500).json({
+      err: err
+    });
+}
+res.status(200).json({
+  todo: foundTodo
+});
+});
+
+});
+
+
 router.post('/todos', function(req, res){
   //console.log(reg.body);
 
@@ -41,7 +55,31 @@ res.status(201).json({
   //res.send(req.body);
 });
 
-router.put('/todos/id:', function(req, res){});
-router.delete('/todos/id:', function(req, res){});
+router.put('/todos/id:', function(req, res){
+  Todo.findOneAndUpdate({_id: req.params.id}, req.body, function(err, oldTodo){
+if(err){
+  res.status(500).json({
+    err: error
+  });
+  }
+  res.status(201).json({
+  msg: oldTodo
+             });
+            });
+
+           });
+router.delete('/todos/id:', function(req, res){
+  Todo.findOneAndRemove({ _id: req.params.id}, function(err, deletedTodo){
+    if(err){
+      res.status(500).json({
+        err: error
+      });
+    }
+    res.status(201).json({
+      msg: deletedTodo
+    });
+  });
+
+});
 
 module.exports = router;
