@@ -11,23 +11,26 @@ router.use(bodyParser.urlencoded({extended: true}));
 router.get('/todos', function(req, res){
    Todo.find({}, function(err, foundTodos){
     if(err){
-       res.status(500).json({
+       return res.status(500).json({//this stops the function from running
          err: err
        });
      }
-      res.status(200).json({
+
+      return res.status(200).json({
         todos: foundTodos
       });
    });
 
 });
-router.get('/todos/:id', function(req, res){
+router.get('/todos/:id', function(req, res, next){
 Todo.find({_id: req.params.id}, function(err, foundTodo){
   if (err){
     res.status(500).json({
       err: err
     });
+    next();// this will the application from running and crush your app
 }
+
 res.status(200).json({
   todo: foundTodo
 });
@@ -48,16 +51,18 @@ router.post('/todos', function(req, res){
     err: err
   });
 }
+else{ //this will keep the app from trying to send two responses and crushing the application
 res.status(201).json({
   msg: 'succefully created todo'
 });
+}
   });
   //res.send(req.body);
 });
 
 router.put('/todos/id:', function(req, res){
   Todo.findOneAndUpdate({_id: req.params.id}, req.body, function(err, oldTodo){
-if(err){
+if(err){ //if left like the following, the function will try 
   res.status(500).json({
     err: error
   });
