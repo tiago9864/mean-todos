@@ -24,13 +24,22 @@
          })
          .catch(function(err){
            console.log(err);
-         })
+         });
     }
     function getAllTodos(){
       return todos;
     }
-    function createOneTodo(Todo){}
-    function updateTodo(index, todo){}
+    function createOneTodo(todo){
+      //DEBUGGER;
+      $http.post('/todos', todo)//modify my data
+      .then(function(response){
+        todos.push(todo);//
+      })
+      .catch(function(err){
+        console.log(err);
+      });
+    }
+    function updateOneTodo(index, todo){}
     function deleteOneTodo(index){}
   }
 }());
